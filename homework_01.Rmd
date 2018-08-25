@@ -1,7 +1,9 @@
 ---
 title: "Chapter 3 Homework"
 author: "put your name here"
-date: "Due Monday, Sept. 4, 2017"
+date: "Due Wednesday, Sept. 5, 2018"
+fontfamily: "newtxtext,newtxmath"
+fontsize: "12pt"
 output: 
   pdf_document: default
   html_document: default
@@ -19,33 +21,32 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(stringr)
 
-source("scripts/format_md.R")
-source("scripts/layer_diagram.R")
+source("_scripts/format_md.R")
+source("_scripts/layer_diagram.R")
 ```
-
 # Instructions
 
 The exercises from Chapter 3, below, are not to do for the lab
 but are homework exercises. You have a choice:
 
 * You can do the exercises out of the book like regular homework and
-  turn them in at the beginning of class on Monday, Sept. 4.
+  turn them in at the beginning of class on Wednesday, Sept. 5.
 
 * You can do them using RMarkdown and turn them by submitting them 
-  electronically on GitHub by the start of class on Monday, Sept. 4.
+  electronically on GitHub by the start of class on Wednesday, Sept. 5.
   
     To submit the homework electronically, 
   
     * Clone a local copy of the file repository from github.
     * In your local repository, answer the exercises in the template
       `homework_01.Rmd`.
-    * When you are done, knit your `.Rmd` file into a PDF file.
+    * When you are done, knit your `.Rmd` file into a PDF or DOCX (Microsoft Word) file.
     * Use git to commit your changes (including the edits to `homework_01.Rmd`
-      and the new PDF file) to your local git repository.
+      and the new PDF or DOCX file) to your local git repository.
     * Push the changes from your local git repository to github.
 
          The last changes that you push before the due date (start of class
-         on Monday Sept. 4) will be graded.
+         on Wednesday, Sept. 5) will be graded.
 
 It is your choice how to do them. Either way is acceptable and will get equal
 credit.
@@ -106,6 +107,8 @@ $$T_{1} = \sqrt[4]{\frac{(1 - \alpha) I_{solar}}{4 \varepsilon \sigma}}$$
 
 This is familiar, because it's the same as the formula for the bare-rock temperature.
 
+Here is R code to calculate $I_{\text{1,up}}$ and $T_1$:
+
 ```{r layer_1_temperature}
 I_1_up = (1 - alpha) * I_solar / 4
 T_1 = (I_1_up / (epsilon * sigma))^0.25
@@ -124,6 +127,8 @@ From the R code above, we get T~1~ = `r format_md(T_1, digits = 3)` K.
 * $T_{ground}^4 = 2 T_{1}^4$
 * $T_{ground} = \sqrt[4]{2} \times T_{1}$
 
+And here is R code to calculate $I_{\text{1,down}}$, $I_{\text{ground}}$, and $T_{\text{ground}}$:
+
 ```{r ground_temperature}
 I_1_down = I_1_up
 I_ground = I_1_up + I_1_down
@@ -131,6 +136,7 @@ T_ground = (I_ground / (epsilon * sigma))^0.25
 ```
 
 From the algebraic solution, we get T~ground~ = `r format_md(2^0.25 * T_1, digits = 3)` K and from the R code above, we get T~ground~ = `r format_md(T_ground, digits = 3)` K.
+
 ## Exercise 3.1 (Grad. students only)
 
 > **The moon with no heat transport.** The Layer Model assumes that the 
@@ -140,7 +146,7 @@ From the algebraic solution, we get T~ground~ = `r format_md(2^0.25 * T_1, digit
 > even worse because fluids like air and water are how heat is carried around on
 > the planet. So let us make the other extreme assumption, that there is no heat 
 > transport on a bare rock like the moon. Assume for comparability that the 
-> albedo of this world is 0.30, same as Earth’s. 
+> albedo of this world is 0.30, same as Earth's.
 >
 > What is the equilibrium temperature of the surface of the moon, on the equator, 
 > at local noon, when the sun is directly overhead? (Hint: First figure out the 
